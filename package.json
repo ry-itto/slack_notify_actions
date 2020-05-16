@@ -22,7 +22,7 @@
     "node",
     "setup"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "ry-itto",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0"

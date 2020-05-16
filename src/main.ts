@@ -1,16 +1,19 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as slack from '@slack/webhook'
 
+type Optional<T> = T | null | undefined
 async function run(): Promise<void> {
+  const webhookURL: string = process.env.SLACK_WEBHOOK_URL!
+
+  const webhook = new slack.IncomingWebhook(webhookURL)
+  const args: slack.IncomingWebhookSendArguments = {
+    text: 'testtest'
+  }
+
+  await webhook.send(args)
+
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
-
-    core.info(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.info(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    core.info('done!')
   } catch (error) {
     core.setFailed(error.message)
   }

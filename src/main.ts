@@ -9,14 +9,17 @@ async function run(): Promise<void> {
   const githubActor: string = process.env.GITHUB_ACTOR!
   const githubRef: string = process.env.GITHUB_REF!
   const githubEvent: string = process.env.GITHUB_EVENT_NAME!
+  const attachmentsTitle: string = process.env.TITLE ?? ''
+  const attachmentsBody: string = process.env.BODY ?? ''
+  const attachmentsColor: string = process.env.COLOR ?? 'green'
 
   const webhook = new slack.IncomingWebhook(webhookURL)
   const attachments: MessageAttachment = createAttachment({
-    color: '#36a64f',
+    color: attachmentsColor,
     authorName: githubActor,
     authorLink: `https://github.com/${githubActor}`,
     authorIcon: `https://github.com/${githubActor}.png`,
-    title: ':tada: Build Success! :tada:',
+    title: attachmentsTitle,
     fields: [
       {
         title: 'Ref',
@@ -30,8 +33,7 @@ async function run(): Promise<void> {
       },
       {
         title: '',
-        value:
-          'Pull Request URL\nhttps://github.com/CA21engineer/Gotties-Client/pull/28\nReviewers\n `ho2ri2s`',
+        value: attachmentsBody,
         short: false
       }
     ],

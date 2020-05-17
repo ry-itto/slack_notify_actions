@@ -47,7 +47,7 @@ async function run(): Promise<void> {
   })
   const args = createIncomingWebhookSendArguments({
     iconUrl: envVariables.slackIconURL,
-    username: envVariables.slackUsername,
+    username: envVariables.slackUser,
     attachments: [attachments]
   })
 

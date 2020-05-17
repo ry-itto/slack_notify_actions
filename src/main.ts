@@ -10,6 +10,7 @@ async function run(): Promise<void> {
   const githubRef: string = process.env.GITHUB_REF!
   const githubEvent: string = process.env.GITHUB_EVENT_NAME!
   const attachmentsTitle: string = process.env.TITLE ?? ''
+  const attachmentsTitleURL: Optional<string> = process.env.TITLE_URL ?? ''
   const attachmentsBody: string = process.env.BODY ?? ''
   const attachmentsColor: string = process.env.COLOR ?? 'green'
 
@@ -20,6 +21,7 @@ async function run(): Promise<void> {
     authorLink: `https://github.com/${githubActor}`,
     authorIcon: `https://github.com/${githubActor}.png`,
     title: attachmentsTitle,
+    titleLink: attachmentsTitleURL,
     fields: [
       {
         title: 'Ref',

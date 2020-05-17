@@ -6,34 +6,35 @@ import {createAttachment} from './utils'
 type Optional<T> = T | null | undefined
 async function run(): Promise<void> {
   const webhookURL: string = process.env.SLACK_WEBHOOK_URL!
+  const githubActor: string = process.env.GITHUB_ACTOR!
+  const githubRef: string = process.env.GITHUB_REF!
+  const githubEvent: string = process.env.GITHUB_EVENT_NAME!
 
   const webhook = new slack.IncomingWebhook(webhookURL)
   const attachments: MessageAttachment = createAttachment({
     color: '#36a64f',
-    authorName: 'ry-itto',
-    authorLink: 'https://github.com/ry-itto',
-    authorIcon: 'https://github.com/ry-itto.png',
+    authorName: githubActor,
+    authorLink: `https://github.com/${githubActor}`,
+    authorIcon: `https://github.com/${githubActor}.png`,
     title: ':tada: Build Success! :tada:',
     fields: [
       {
-        title: 'Branch',
-        value: 'master',
+        title: 'Ref',
+        value: githubRef,
         short: true
       },
       {
         title: 'Event',
-        value: 'push',
+        value: githubEvent,
         short: true
       },
       {
-        title: 'Body',
+        title: '',
         value:
           'Pull Request URL\nhttps://github.com/CA21engineer/Gotties-Client/pull/28\nReviewers\n `ho2ri2s`',
         short: false
       }
     ],
-    imageUrl: 'https://github.com/ry-itto.png',
-    thumbUrl: 'https://github.com/ry-itto.png',
     footer: 'Slack API',
     footerIcon:
       'https://platform.slack-edge.com/img/default_application_icon.png',

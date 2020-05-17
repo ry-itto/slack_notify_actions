@@ -856,8 +856,37 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const webhookURL = process.env.SLACK_WEBHOOK_URL;
         const webhook = new slack.IncomingWebhook(webhookURL);
+        const attachments = {
+            color: '#36a64f',
+            author_name: 'ry-itto',
+            author_link: 'https://github.com/ry-itto',
+            author_icon: 'https://github.com/ry-itto.png',
+            title: ':tada: Build Success! :tada:',
+            fields: [
+                {
+                    title: 'Branch',
+                    value: 'master',
+                    short: true
+                },
+                {
+                    title: 'Event',
+                    value: 'push',
+                    short: true
+                },
+                {
+                    title: 'Body',
+                    value: 'Pull Request URL\nhttps://github.com/CA21engineer/Gotties-Client/pull/28\nReviewers\n `ho2ri2s`',
+                    short: false
+                }
+            ],
+            image_url: 'https://github.com/ry-itto.png',
+            thumb_url: 'https://github.com/ry-itto.png',
+            footer: 'Slack API',
+            footer_icon: 'https://platform.slack-edge.com/img/default_application_icon.png',
+            ts: '123456789'
+        };
         const args = {
-            text: 'testtest'
+            attachments: [attachments]
         };
         yield webhook.send(args);
         try {

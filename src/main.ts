@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as slack from '@slack/webhook'
 import {MessageAttachment} from '@slack/types'
-import {createAttachment} from './utils'
+import {createAttachment, createIncomingWebhookSendArguments} from './utils'
 
 type Optional<T> = T | null | undefined
 async function run(): Promise<void> {
@@ -9,6 +9,8 @@ async function run(): Promise<void> {
   const githubActor: string = process.env.GITHUB_ACTOR!
   const githubRef: string = process.env.GITHUB_REF!
   const githubEvent: string = process.env.GITHUB_EVENT_NAME!
+  const slackIconURL: Optional<string> = process.env.SLACK_ICON_URL
+  const slackUsername: Optional<string> = process.env.SLACK_USERNAME
   const attachmentsTitle: string = process.env.TITLE ?? ''
   const attachmentsTitleURL: Optional<string> = process.env.TITLE_URL ?? ''
   const attachmentsBody: string = process.env.BODY ?? ''
@@ -40,9 +42,11 @@ async function run(): Promise<void> {
       }
     ]
   })
-  const args: slack.IncomingWebhookSendArguments = {
+  const args = createIncomingWebhookSendArguments({
+    iconUrl: slackIconURL,
+    username: slackUsername,
     attachments: [attachments]
-  }
+  })
 
   await webhook.send(args)
 

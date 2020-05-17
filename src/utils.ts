@@ -5,6 +5,8 @@ import {
   KnownBlock,
   Block
 } from '@slack/types'
+import {IncomingWebhookSendArguments} from '@slack/webhook'
+import {Agent} from 'http'
 
 interface CreateAttachmentArgumentType {
   blocks?: (KnownBlock | Block)[]
@@ -55,5 +57,41 @@ export const createAttachment = (
     actions: args.actions,
     callback_id: args.callbackId,
     mrkdwn_in: args.mrkdwnIn
+  }
+}
+
+interface IncomingWebhookDefaultArgumentsCamel {
+  username?: string
+  iconEmoji?: string
+  iconUrl?: string
+  channel?: string
+  text?: string
+  linkNames?: boolean
+  agent?: Agent
+}
+
+interface CreateIncomingWebhookSendArgumentsArgumentType
+  extends IncomingWebhookDefaultArgumentsCamel {
+  attachments?: MessageAttachment[]
+  blocks?: (KnownBlock | Block)[]
+  unfurlLinks?: boolean
+  unfurlMedia?: boolean
+}
+
+export const createIncomingWebhookSendArguments = (
+  args: CreateIncomingWebhookSendArgumentsArgumentType
+): IncomingWebhookSendArguments => {
+  return {
+    attachments: args.attachments,
+    blocks: args.blocks,
+    unfurl_links: args.unfurlLinks,
+    unfurl_media: args.unfurlMedia,
+    username: args.username,
+    icon_emoji: args.iconEmoji,
+    icon_url: args.iconUrl,
+    channel: args.channel,
+    text: args.text,
+    link_names: args.linkNames,
+    agent: args.agent
   }
 }

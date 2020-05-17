@@ -38,11 +38,7 @@ async function run(): Promise<void> {
         value: attachmentsBody,
         short: false
       }
-    ],
-    footer: 'Slack API',
-    footerIcon:
-      'https://platform.slack-edge.com/img/default_application_icon.png',
-    ts: '123456789'
+    ]
   })
   const args: slack.IncomingWebhookSendArguments = {
     attachments: [attachments]

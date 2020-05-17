@@ -12,11 +12,11 @@ async function run(): Promise<void> {
   const envVariables = readEnvVariables()
   const title = replaceGitHubUsernameWithSlackUsername(
     envVariables.attachmentsTitle ?? '',
-    envVariables.slackUsername ?? ''
+    envVariables.slackUser ?? ''
   )
   const body = replaceGitHubUsernameWithSlackUsername(
     envVariables.attachmentsBody ?? '',
-    envVariables.slackUsername ?? ''
+    envVariables.slackUser ?? ''
   )
 
   const webhook = new slack.IncomingWebhook(envVariables.webhookURL)
@@ -47,7 +47,7 @@ async function run(): Promise<void> {
   })
   const args = createIncomingWebhookSendArguments({
     iconUrl: envVariables.slackIconURL,
-    username: envVariables.slackUser,
+    username: envVariables.slackUsername,
     attachments: [attachments]
   })
 

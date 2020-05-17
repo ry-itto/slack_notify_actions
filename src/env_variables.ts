@@ -42,7 +42,7 @@ export const readEnvVariables = (): EnvVariables => {
     githubRef,
     githubEvent,
     slackIconURL: process.env.SLACK_ICON_URL,
-    slackUsername: process.env.SLACK_USERNAME,
+    slackUsername: process.env.SLACK_USER,
     attachmentsTitle: process.env.TITLE ?? '',
     attachmentsTitleURL: process.env.TITLE_URL ?? '',
     attachmentsBody: process.env.BODY ?? '',

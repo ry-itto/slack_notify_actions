@@ -6,6 +6,7 @@ interface GitHubEnvVariables {
 
 interface ProcessEnvVariables {
   webhookURL: string
+  slackUser?: string
   slackIconURL?: string
   slackUsername?: string
   attachmentsTitle?: string

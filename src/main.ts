@@ -1,11 +1,23 @@
 import * as core from '@actions/core'
 import * as slack from '@slack/webhook'
 import {MessageAttachment} from '@slack/types'
-import {createAttachment, createIncomingWebhookSendArguments} from './utils'
+import {
+  createAttachment,
+  createIncomingWebhookSendArguments,
+  replaceGitHubUsernameWithSlackUsername
+} from './utils'
 import {readEnvVariables} from './env_variables'
 
 async function run(): Promise<void> {
   const envVariables = readEnvVariables()
+  const title = replaceGitHubUsernameWithSlackUsername(
+    envVariables.attachmentsTitle ?? '',
+    envVariables
+  )
+  const body = replaceGitHubUsernameWithSlackUsername(
+    envVariables.attachmentsBody ?? '',
+    envVariables
+  )
 
   const webhook = new slack.IncomingWebhook(envVariables.webhookURL)
   const attachments: MessageAttachment = createAttachment({
@@ -13,7 +25,7 @@ async function run(): Promise<void> {
     authorName: envVariables.githubActor,
     authorLink: `https://github.com/${envVariables.githubActor}`,
     authorIcon: `https://github.com/${envVariables.githubActor}.png`,
-    title: envVariables.attachmentsTitle,
+    title,
     titleLink: envVariables.attachmentsTitleURL,
     fields: [
       {
@@ -28,7 +40,7 @@ async function run(): Promise<void> {
       },
       {
         title: '',
-        value: envVariables.attachmentsBody ?? '',
+        value: body,
         short: false
       }
     ]

@@ -6,7 +6,7 @@ interface GitHubEnvVariables {
 
 interface ProcessEnvVariables {
   webhookURL: string
-  slackUser?: string
+  slackGithubPairs?: string
   slackIconURL?: string
   slackUsername?: string
   attachmentsTitle?: string
@@ -42,7 +42,7 @@ export const readEnvVariables = (): EnvVariables => {
     githubRef,
     githubEvent,
     slackIconURL: process.env.SLACK_ICON_URL,
-    slackUser: process.env.SLACK_USER,
+    slackGithubPairs: process.env.SLACK_GITHUB_USER_PAIRS,
     slackUsername: process.env.SLACK_USERNAME,
     attachmentsTitle: process.env.TITLE ?? '',
     attachmentsTitleURL: process.env.TITLE_URL ?? '',

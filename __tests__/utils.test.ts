@@ -11,5 +11,15 @@ describe('utils test', () => {
       )
       expect(result).toBe('`@ito ryoya`')
     })
+
+    it('no usernames', () => {
+      const slackUsernames = ''
+      const body = '`@ry-itto`'
+      const result = replaceGitHubUsernameWithSlackUsername(
+        body,
+        slackUsernames
+      )
+      expect(result).toBe('`@ry-itto`')
+    })
   })
 })

@@ -7,7 +7,6 @@ import {
 } from '@slack/types'
 import {IncomingWebhookSendArguments} from '@slack/webhook'
 import {Agent} from 'http'
-import {EnvVariables} from './env_variables'
 
 interface CreateAttachmentArgumentType {
   blocks?: (KnownBlock | Block)[]
@@ -99,19 +98,17 @@ export const createIncomingWebhookSendArguments = (
 
 export const replaceGitHubUsernameWithSlackUsername = (
   text: string,
-  envVariables: EnvVariables
+  usernames: string
 ): string => {
   const githubToSlack =
-    envVariables.slackUser
-      ?.split('\n')
-      .reduce<{[key: string]: string}>((result, row) => {
-        const res = row.split(',')
-        const key: string = res[0]
-        result[key] = res[1]
-        return result
-      }, {}) ?? {}
+    usernames.split('\n').reduce<{[key: string]: string}>((result, row) => {
+      const res = row.split(',')
+      const key: string = res[0]
+      result[key] = res[1]
+      return result
+    }, {}) ?? {}
   for (const [key, value] of Object.entries(githubToSlack)) {
-    text.replace(key, value)
+    text = text.replace(key, value)
   }
   return text
 }

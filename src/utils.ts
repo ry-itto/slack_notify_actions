@@ -112,7 +112,16 @@ export const replaceGitHubUsernameWithSlackUsername = (
       return result
     }, {}) ?? {}
   for (const [key, value] of Object.entries(githubToSlack)) {
-    text = text.replace(key, value)
+    const regExpKeyWithToken = `<@${key}>`
+    const regExpKeyWithMention = `(?!<)@${key}`
+    const regExpOnlyKey = key
+    text = text.replace(
+      new RegExp(
+        `${regExpKeyWithToken}|${regExpKeyWithMention}|${regExpOnlyKey}`,
+        'g'
+      ),
+      `<@${value}>`
+    )
   }
   return text
 }

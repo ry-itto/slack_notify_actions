@@ -2,14 +2,44 @@ import {replaceGitHubUsernameWithSlackUsername} from '../src/utils'
 
 describe('utils test', () => {
   describe('replaceGitHubUsernameWithSlackUsername', () => {
-    it('Success', () => {
+    it('Only username', () => {
       const slackUsernames = `ry-itto,ito ryoya`
-      const body = '`@ry-itto`'
+      const body = '`ry-itto`'
       const result = replaceGitHubUsernameWithSlackUsername(
         body,
         slackUsernames
       )
-      expect(result).toBe('`@ito ryoya`')
+      expect(result).toBe('`<@ito ryoya>`')
+    })
+
+    it('Some usernames', () => {
+      const slackUsernames = `ry-itto,ito ryoya`
+      const body = '`ry-itto ry-itto`'
+      const result = replaceGitHubUsernameWithSlackUsername(
+        body,
+        slackUsernames
+      )
+      expect(result).toBe('`<@ito ryoya> <@ito ryoya>`')
+    })
+
+    it('Start with <@', () => {
+      const slackUsernames = `ry-itto,ito ryoya`
+      const body = '<@ry-itto>'
+      const result = replaceGitHubUsernameWithSlackUsername(
+        body,
+        slackUsernames
+      )
+      expect(result).toBe('<@ito ryoya>')
+    })
+
+    it('Start with @', () => {
+      const slackUsernames = `ry-itto,ito ryoya`
+      const body = '@ry-itto'
+      const result = replaceGitHubUsernameWithSlackUsername(
+        body,
+        slackUsernames
+      )
+      expect(result).toBe('<@ito ryoya>')
     })
 
     it('no usernames', () => {

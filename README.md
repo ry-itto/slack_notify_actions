@@ -24,14 +24,20 @@
 ### Environment Variables
 #### Required
 - `SLACK_WEBHOOK_URL`
+
   Slack Incoming webhook URL.
 
 #### Optional
 - `SLACK_ICON_URL`
+
   User icon image URL.
+  
 - `SLACK_USERNAME`
+
   Username.
+  
 - `SLACK_GITHUB_USER_PAIRS`
+
   An environment variable to use when you want to connect a GitHub user to a Slack user.
   Save it in CSV format and replace it with a specific user name when it exists.
 
@@ -46,8 +52,13 @@
   ![スクリーンショット 2020-05-19 16 46 02](https://user-images.githubusercontent.com/30540303/82301203-de5d1900-99f2-11ea-92ca-f23988c24650.png)
   
 - `TITLE`
+
   Message Title.
+  
 - `BODY`
+
   Message Body.
+  
 - `COLOR`
+
   Attachment color. This will be shown left side of message.

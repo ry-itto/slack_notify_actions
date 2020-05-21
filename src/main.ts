@@ -9,33 +9,45 @@ import {
 import {readEnvVariables} from './env_variables'
 
 async function run(): Promise<void> {
-  const envVariables = readEnvVariables()
+  const {
+    webhookURL,
+    githubActor,
+    githubRef,
+    githubEvent,
+    slackIconURL,
+    slackGithubPairs,
+    slackUsername,
+    attachmentsTitle,
+    attachmentsTitleURL,
+    attachmentsBody,
+    attachmentsColor
+  } = readEnvVariables()
   const title = replaceGitHubUsernameWithSlackUsername(
-    envVariables.attachmentsTitle ?? '',
-    envVariables.slackGithubPairs ?? ''
+    attachmentsTitle ?? '',
+    slackGithubPairs ?? ''
   )
   const body = replaceGitHubUsernameWithSlackUsername(
-    envVariables.attachmentsBody ?? '',
-    envVariables.slackGithubPairs ?? ''
+    attachmentsBody ?? '',
+    slackGithubPairs ?? ''
   )
 
-  const webhook = new slack.IncomingWebhook(envVariables.webhookURL)
+  const webhook = new slack.IncomingWebhook(webhookURL)
   const attachments: MessageAttachment = createAttachment({
-    color: envVariables.attachmentsColor,
-    authorName: envVariables.githubActor,
-    authorLink: `https://github.com/${envVariables.githubActor}`,
-    authorIcon: `https://github.com/${envVariables.githubActor}.png`,
+    color: attachmentsColor,
+    authorName: githubActor,
+    authorLink: `https://github.com/${githubActor}`,
+    authorIcon: `https://github.com/${githubActor}.png`,
     title,
-    titleLink: envVariables.attachmentsTitleURL,
+    titleLink: attachmentsTitleURL,
     fields: [
       {
         title: 'Ref',
-        value: envVariables.githubRef,
+        value: githubRef,
         short: true
       },
       {
         title: 'Event',
-        value: envVariables.githubEvent,
+        value: githubEvent,
         short: true
       },
       {
@@ -46,8 +58,8 @@ async function run(): Promise<void> {
     ]
   })
   const args = createIncomingWebhookSendArguments({
-    iconUrl: envVariables.slackIconURL,
-    username: envVariables.slackUsername,
+    iconUrl: slackIconURL,
+    username: slackUsername,
     attachments: [attachments]
   })
 

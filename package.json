@@ -25,7 +25,7 @@
   "author": "ry-itto",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.6",
     "@slack/webhook": "^5.0.3"
   },
   "devDependencies": {

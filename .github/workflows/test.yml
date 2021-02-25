@@ -20,6 +20,6 @@ jobs:
         SLACK_ICON_URL: 'https://github.com/ry-itto.png'
         SLACK_USERNAME: 'Capicapi'
         SLACK_GITHUB_USER_PAIRS: ${{ secrets.SLACK_USER }}
-        TITLE: ':tada: Success ry-itto :tada:'
-        BODY: 'ry-itto ry-itto ry-itto'
+        TITLE: ':tada: Success ry-itto @ry-itto :tada:'
+        BODY: '@ry-itto ry-itto ry-itto'
 

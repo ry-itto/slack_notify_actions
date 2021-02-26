@@ -51,5 +51,18 @@ describe('utils test', () => {
       )
       expect(result).toBe('`@ry-itto`')
     })
+
+    it('multiple slackUsernames', () => {
+      const slackUsernames = `
+      ry-itto,ito ryoya
+      github,octocat
+      `
+      const body = 'ry-itto and github'
+      const result = replaceGitHubUsernameWithSlackUsername(
+        body,
+        slackUsernames
+      )
+      expect(result).toBe('<@ito ryoya> and <@octocat>')
+    })
   })
 })

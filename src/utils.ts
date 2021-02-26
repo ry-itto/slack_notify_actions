@@ -106,7 +106,7 @@ export const replaceGitHubUsernameWithSlackUsername = (
       if (!value) {
         return result
       }
-      result[key] = value
+      result[key.trim()] = value.trim()
       return result
     }, {}) ?? {}
   for (const [key, value] of Object.entries(githubToSlack)) {

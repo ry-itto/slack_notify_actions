@@ -101,7 +101,7 @@ export const replaceGitHubUsernameWithSlackUsername = (
   usernames: string
 ): string => {
   const githubToSlack =
-    usernames.split('\n').reduce<{[key: string]: string}>((result, row) => {
+    usernames.replace(/R/g, '\n').split('\n').reduce<{[key: string]: string}>((result, row) => {
       const [key, value] = row.split(',')
       if (!value) {
         return result
@@ -109,6 +109,7 @@ export const replaceGitHubUsernameWithSlackUsername = (
       result[key.trim()] = value.trim()
       return result
     }, {}) ?? {}
+
   for (const [key, value] of Object.entries(githubToSlack)) {
     const regExpKeyWithToken = `<@${key}>`
     const regExpKeyWithMention = `(?!<)@${key}`

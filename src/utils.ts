@@ -101,7 +101,7 @@ export const replaceGitHubUsernameWithSlackUsername = (
   usernames: string
 ): string => {
   const githubToSlack =
-    usernames.replace(/\R/g, '\n').split('\n').reduce<{[key: string]: string}>((result, row) => {
+    usernames.replace(/R/g, '\n').split('\n').reduce<{[key: string]: string}>((result, row) => {
       const [key, value] = row.split(',')
       if (!value) {
         return result

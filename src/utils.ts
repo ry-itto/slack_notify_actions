@@ -7,6 +7,7 @@ import {
 } from '@slack/types'
 import {IncomingWebhookSendArguments} from '@slack/webhook'
 import {Agent} from 'http'
+import {CsvParser} from 'csv-parser'
 
 interface CreateAttachmentArgumentType {
   blocks?: (KnownBlock | Block)[]
@@ -101,7 +102,7 @@ export const replaceGitHubUsernameWithSlackUsername = (
   usernames: string
 ): string => {
   const githubToSlack =
-    usernames.split('\n').reduce<{[key: string]: string}>((result, row) => {
+    usernames.replace(/\R/g, '\n').split('\n').reduce<{[key: string]: string}>((result, row) => {
       const [key, value] = row.split(',')
       if (!value) {
         return result
@@ -109,6 +110,7 @@ export const replaceGitHubUsernameWithSlackUsername = (
       result[key.trim()] = value.trim()
       return result
     }, {}) ?? {}
+
   for (const [key, value] of Object.entries(githubToSlack)) {
     const regExpKeyWithToken = `<@${key}>`
     const regExpKeyWithMention = `(?!<)@${key}`

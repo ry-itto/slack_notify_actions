@@ -7,7 +7,6 @@ import {
 } from '@slack/types'
 import {IncomingWebhookSendArguments} from '@slack/webhook'
 import {Agent} from 'http'
-import {CsvParser} from 'csv-parser'
 
 interface CreateAttachmentArgumentType {
   blocks?: (KnownBlock | Block)[]
